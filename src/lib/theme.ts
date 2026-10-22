@@ -204,5 +204,5 @@ export function writeStoredTheme(value: StoredTheme): void {
 }
 
 export function themeBootScript(): string {
-  return `try{var raw=localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)});if(!raw)return;var t=JSON.parse(raw);var light=${JSON.stringify(LIGHT_NEUTRALS)};var dark=${JSON.stringify(DARK_NEUTRALS)};var map=${JSON.stringify(CSS_VAR_MAP)};var palette=Object.assign({},t.base||{});if(t.base&&t.mode&&t.baseMode&&t.mode!==t.baseMode){palette=Object.assign({},palette,t.mode==="dark"?dark:light);}var root=document.documentElement;root.dataset.mode=t.mode||"light";for(var key in map){if(palette[key])root.style.setProperty(map[key],palette[key]);}}catch(e){}`;
+  return `(function(){try{var raw=localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)});if(!raw)return;var t=JSON.parse(raw);var light=${JSON.stringify(LIGHT_NEUTRALS)};var dark=${JSON.stringify(DARK_NEUTRALS)};var map=${JSON.stringify(CSS_VAR_MAP)};var palette=Object.assign({},t.base||{});if(t.base&&t.mode&&t.baseMode&&t.mode!==t.baseMode){palette=Object.assign({},palette,t.mode==="dark"?dark:light);}var root=document.documentElement;root.dataset.mode=t.mode||"light";for(var key in map){if(palette[key])root.style.setProperty(map[key],palette[key]);}}catch(e){}})();`;
 }
